@@ -1,6 +1,6 @@
 {
   // 1) Cambia "CAMBIA-ESTO" por el nombre EXACTO de tu proyecto (Worker) en Cloudflare
-  "name": "CAMBIA-ESTO",
+  "name": "misterio2027",
   "main": "src/index.js",
   "compatibility_date": "2026-10-01",
   "assets": {
@@ -14,7 +14,7 @@
       "binding": "DB",
       "database_name": "mi-web-db",
       // 2) Pega aquí el ID de tu base de datos D1
-      "database_id": "CAMBIA-ESTO"
+      "database_id": "aeae5f61-7faa-4e12-b071-01317b3e6b94"
     }
   ]
 }
