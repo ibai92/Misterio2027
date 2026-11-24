@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header><div class="caja">
+    <a class="logo" href="/">Ana &amp; Carlos</a>
+    <nav>
+      <a href="/">Invitación</a>
+      <a href="/actividades">Actividades</a>
+      <a href="/informacion">Información</a>
+      <a href="/panel" id="adminlink" hidden>Administración</a>
+      <button class="sec" id="salir">Cerrar sesión</button>
+    </nav>
+  </div></header>
+  <main class="caja">
+    <h1>Administración</h1>
+    <p id="hola">Cargando…</p>
+    
+    <section id="admin" hidden>
+      <h2>Administración de usuarios</h2>
+      <form id="nuevo">
+        <div><label for="ne">Correo del nuevo usuario</label><input id="ne" type="email" required></div>
+        <div><label for="np">Contraseña inicial (mínimo 8 caracteres)</label><input id="np" type="text" minlength="8" required></div>
+        <div><label for="nr">Rol</label>
+          <select id="nr"><option value="user">Usuario</option><option value="admin">Administrador</option></select></div>
+        <button type="submit">Crear usuario</button>
+        <p id="msg" class="msg" role="status"></p>
+      </form>
+      <div class="tabla"><table>
+        <thead><tr><th>Correo</th><th>Rol</th><th></th></tr></thead>
+        <tbody id="lista"></tbody>
+      </table></div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    let yo;
+
+    async function cargar() {
+      const { users } = await api('users');
+      $('lista').replaceChildren(...users.map(u => {
+        const tr = document.createElement('tr');
+        [u.email, u.role === 'admin' ? 'Administrador' : 'Usuario'].forEach(t => {
+          const td = document.createElement('td'); td.textContent = t; tr.append(td);
+        });
+        const td = document.createElement('td');
+        if (u.email !== yo.email) {
+          const b = document.createElement('button');
+          b.className = 'sec'; b.textContent = 'Eliminar';
+          b.onclick = async () => {
+            if (!confirm('¿Eliminar a ' + u.email + '?')) return;
+            try { await api('users/delete', { id: u.id }); cargar(); }
+            catch (err) { aviso($('msg'), err.message, true); }
+          };
+          td.append(b);
+        }
+        tr.append(td);
+        return tr;
+      }));
+    }
+
+    $('nuevo').onsubmit = async e => {
+      e.preventDefault();
+      try {
+        await api('users', { email: $('ne').value, password: $('np').value, role: $('nr').value });
+        aviso($('msg'), 'Usuario creado. Comparte con él su contraseña inicial.');
+        $('nuevo').reset(); cargar();
+      } catch (err) { aviso($('msg'), err.message, true); }
+    };
+
+    $('salir').onclick = async () => { await api('logout', {}); location.href = '/login.html'; };
+
+    (async () => {
+      try { yo = await api('me'); } catch { location.href = '/login.html'; return; }
+      $('hola').textContent = 'Sesión iniciada como ' + yo.email + (yo.role === 'admin' ? ' (administrador)' : '');
+      if (yo.role === 'admin') { $('admin').hidden = false; cargar(); }
+    })();
+  </script>
+</body>
+</html>

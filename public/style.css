@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&family=Pinyon+Script&display=swap");
+@view-transition{navigation:auto}
+:root{--oro:#d6b36a;--ciruela:#7a3b52;--tinta:#2b2438;--rosa:#e9b8b5;--salvia:#b9d1a6;--cielo:#a9d3e8;--lila:#c9b6e6;--sol:#f3d58a;
+--serif:"Cormorant Garamond",Georgia,serif;--sans:Jost,"Segoe UI",Arial,sans-serif;--script:"Pinyon Script","Brush Script MT",cursive}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100dvh;color:var(--tinta);font:400 1.0625rem/1.7 var(--sans);background:linear-gradient(160deg,#f7dcd8 0%,#e6dbf2 50%,#d2e6f1 100%) fixed}
+.caja{width:min(100% - 2rem,64rem);margin-inline:auto}
+header{background:#ffffffb3;backdrop-filter:blur(8px);border-bottom:1px solid #fff}
+header .caja{display:flex;justify-content:space-between;align-items:center;gap:.6rem 1.5rem;flex-wrap:wrap;padding-block:.7rem}
+.logo{font:2rem var(--script);color:var(--ciruela);text-decoration:none}
+nav{display:flex;gap:.4rem 1.3rem;align-items:center;flex-wrap:wrap}
+nav a{color:var(--tinta);text-decoration:none;padding-block:.2rem;border-bottom:2px solid transparent}
+nav a:hover,nav a[aria-current]{border-color:var(--oro)}
+main{padding-block:clamp(1.5rem,5vw,3.5rem) 4rem}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1;margin:0}
+h1{font-size:clamp(2.4rem,7vw,4rem)}
+h2{font-size:clamp(1.7rem,4vw,2.2rem)}
+h3{font-size:1.45rem;margin-bottom:.25rem}
+p{margin:0 0 1rem}
+.centro{text-align:center}
+.centro p{margin-inline:auto;max-width:44ch}
+button,.boton{font:500 1rem var(--sans);color:#fff;border:0;border-radius:999px;padding:.8rem 1.7rem;cursor:pointer;text-decoration:none;display:inline-block;background:linear-gradient(135deg,#9a4a69,var(--ciruela));box-shadow:0 6px 16px #7a3b5240}
+button:hover,.boton:hover{filter:brightness(1.1)}
+.boton.claro,button.sec{background:#fff;color:var(--ciruela);box-shadow:inset 0 0 0 1.5px var(--ciruela)}
+button.sec{padding:.35rem 1rem;font-size:.95rem}
+:focus-visible{outline:3px solid var(--oro);outline-offset:3px}
+.acciones{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+/* Carta de invitación */
+.carta{position:relative;width:min(100%,40rem);margin:0 auto;padding:clamp(3.5rem,9vw,5.5rem) clamp(1.4rem,6vw,4rem);background:#fffdf8;border-radius:6px;box-shadow:0 2px 0 #fff,0 24px 60px #4a2f6330;text-align:center;overflow:hidden}
+.carta::before,.carta::after{content:"";position:absolute;width:clamp(6.5rem,26vw,10rem);aspect-ratio:11/6;background:url(/img/rama.svg) center/contain no-repeat;pointer-events:none}
+.carta::before{top:.6rem;left:.6rem}
+.carta::after{bottom:.6rem;right:.6rem;transform:rotate(180deg)}
+.carta img.anillos{width:5rem;margin-bottom:.4rem}
+.carta .saludo{font:2.3rem var(--script);color:var(--ciruela);margin-bottom:1.2rem}
+.carta p{font:500 clamp(1.2rem,3.2vw,1.4rem)/1.65 var(--serif)}
+.carta .firma{font:clamp(3rem,12vw,4.6rem)/1 var(--script);color:var(--ciruela);margin:.8rem 0 .4rem}
+.carta .fecha{font:1rem var(--sans);letter-spacing:.04em}
+.cuenta{font:italic 500 1.8rem var(--serif);color:var(--ciruela);margin:.2rem 0 1.6rem}
+/* Programa */
+.titulo{margin-bottom:2.5rem}
+.titulo .script{display:block;font:clamp(2rem,6vw,3rem) var(--script);color:var(--ciruela)}
+.linea{list-style:none;margin:0 auto;padding:0;max-width:58rem;position:relative;display:grid;gap:1.6rem}
+.linea::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:3px;transform:translateX(-50%);background:linear-gradient(var(--rosa),var(--lila),var(--cielo));border-radius:3px}
+.linea li{position:relative;width:calc(50% - 2.2rem);background:#fffdf8;border-radius:16px;padding:1.2rem 1.5rem 1.3rem;border-top:6px solid var(--c);box-shadow:0 10px 28px #4a2f6322}
+.linea li:nth-child(even){justify-self:end}
+.linea li::after{content:attr(data-i);position:absolute;top:.9rem;right:-3.4rem;width:2.4rem;height:2.4rem;border-radius:50%;background:var(--c);display:grid;place-items:center;font-size:1.25rem;box-shadow:0 0 0 5px #ffffffb0}
+.linea li:nth-child(even)::after{right:auto;left:-3.4rem}
+.linea time{font:500 .95rem var(--sans);color:var(--ciruela);font-variant-numeric:tabular-nums}
+.linea p{margin:.2rem 0 0}
+/* Información */
+.lugares{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:1.8rem}
+.lugar{background:#fffdf8;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px #4a2f6326;display:flex;flex-direction:column}
+.lugar .cab{padding:1.4rem 1.6rem;background:linear-gradient(135deg,var(--c1),var(--c2))}
+.lugar .cab span{font-size:2rem}
+.lugar .cuerpo{padding:1.4rem 1.6rem 1.6rem;display:grid;gap:.4rem;flex:1;align-content:start}
+.lugar iframe{width:100%;height:15rem;border:0;border-radius:12px;margin:.6rem 0 1rem}
+.lugar .boton{justify-self:start}
+.notas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1.4rem;margin-top:1.8rem}
+.notas div{background:#ffffffcc;border-radius:14px;padding:1.2rem 1.4rem;border-left:6px solid var(--c)}
+.notas p{margin:0}
+/* Formularios y panel */
+form{display:grid;gap:1rem;max-width:26rem}
+label{font-weight:500;font-size:.95rem}
+input,select{width:100%;font:inherit;padding:.7rem .8rem;border:1px solid #b5a8c8;border-radius:10px;background:#fff;color:var(--tinta)}
+.msg{min-height:1.5rem;font-size:.95rem;margin:0}
+.msg.error{color:#a3261f}
+.tabla{overflow-x:auto;margin-top:2rem;background:#ffffffcc;border-radius:14px;padding:.5rem 1rem}
+table{border-collapse:collapse;width:100%}
+th,td{text-align:left;padding:.6rem .5rem;border-bottom:1px solid #e3dcee}
+/* Acceso misterioso */
+.noche{min-height:100dvh;display:grid;place-items:center;padding:1.5rem;color:#eee9f7;position:relative;overflow:hidden;
+background:radial-gradient(ellipse at 85% 8%,#3d3170 0,transparent 45%),radial-gradient(ellipse at 8% 95%,#4d2148 0,transparent 50%),#0d0f24 fixed}
+.noche::before,.noche::after{content:"";position:absolute;inset:0;pointer-events:none}
+.noche::before{background-image:radial-gradient(1.5px 1.5px at 20px 30px,#fff,transparent),radial-gradient(1px 1px at 90px 80px,#fff,transparent),radial-gradient(1.5px 1.5px at 150px 20px,#f6e3b0,transparent),radial-gradient(1px 1px at 60px 140px,#fff,transparent);background-size:200px 180px}
+.noche::after{background-image:radial-gradient(2px 2px at 40px 60px,#fff,transparent),radial-gradient(1.8px 1.8px at 130px 110px,var(--oro),transparent);background-size:310px 260px;animation:brillo 5s ease-in-out infinite alternate}
+@keyframes brillo{from{opacity:.2}to{opacity:1}}
+.luna{position:absolute;top:7%;right:9%;width:clamp(3.8rem,12vw,7rem);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffbe8,#e9dfb8 60%,#cdbf8c);box-shadow:0 0 70px 24px #f6e3b030}
+.noche>main{position:relative;z-index:1;padding:0;width:min(92vw,25rem)}
+.puerta{margin-top:2.6rem;text-align:center;padding:0 1.8rem 2rem;background:#151839d9;backdrop-filter:blur(8px);border:1px solid #d6b36a66;border-radius:22px;box-shadow:0 24px 70px #000a}
+.sello{width:4.8rem;height:4.8rem;margin:0 auto 1rem;transform:translateY(-2.4rem);border-radius:50%;display:grid;place-items:center;font:2.1rem var(--script);color:#f3d9a0;background:radial-gradient(circle at 35% 30%,#b84a66,#7a2340 70%);box-shadow:inset 0 0 0 4px #ffffff24,inset 0 0 0 7px #0003,0 10px 24px #000a}
+.puerta .sello+h1{margin-top:-1.6rem}
+.puerta h1{font-size:clamp(2rem,8vw,2.6rem);color:#f6e3b0;margin-bottom:.6rem}
+.puerta p{color:#c9c2df;margin-bottom:1.4rem}
+.puerta form{text-align:left;margin-inline:auto}
+.puerta label{color:#ddd6f0}
+.puerta input{background:#0d0f2499;border-color:#d6b36a55;color:#fff}
+.puerta button{width:100%;background:linear-gradient(135deg,#ecd08d,#c19a4a);color:#1b1630;box-shadow:0 6px 20px #c19a4a40}
+.puerta .msg.error{color:#ff9d9d}
+@media(max-width:760px){
+.linea::before{left:1.2rem}
+.linea li,.linea li:nth-child(even){width:auto;margin-left:3.4rem;justify-self:auto}
+.linea li::after,.linea li:nth-child(even)::after{left:-3.4rem;right:auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.noche::after{animation:none}@view-transition{navigation:none}}

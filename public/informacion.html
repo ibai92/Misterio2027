@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dónde y cómo llegar</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header><div class="caja">
+    <a class="logo" href="/">Ana &amp; Carlos</a>
+    <nav>
+      <a href="/">Invitación</a>
+      <a href="/actividades">Actividades</a>
+      <a href="/informacion">Información</a>
+      <a href="/panel" id="adminlink" hidden>Administración</a>
+      <button class="sec" id="salir">Cerrar sesión</button>
+    </nav>
+  </div></header>
+  <main class="caja">
+    <div class="centro" style="margin-bottom:2.5rem">
+      <span style="display:block;font:clamp(2rem,6vw,3rem) var(--script);color:var(--ciruela)">Para que no te pierdas nada</span>
+      <h1>Dónde y cómo</h1>
+    </div>
+    <div class="lugares">
+      <section class="lugar" style="--c1:#f4c4c0;--c2:#e6c9ee">
+        <div class="cab"><span>💍</span><h2>La boda</h2></div>
+        <div class="cuerpo">
+          <h3>Junta Municipal de Moncloa-Aravaca</h3>
+          <p>Madrid · A partir de las 10:00. Os confirmaremos la sala y el acceso exactos.</p>
+          <iframe loading="lazy" title="Mapa de la Junta Municipal de Moncloa-Aravaca" src="https://maps.google.com/maps?q=Junta+Municipal+Moncloa-Aravaca+Madrid&amp;output=embed"></iframe>
+          <a class="boton" href="https://www.google.com/maps/search/?api=1&amp;query=Junta+Municipal+Moncloa-Aravaca+Madrid" target="_blank" rel="noopener">Abrir en Google Maps</a>
+        </div>
+      </section>
+      <section class="lugar" style="--c1:#f3e2a8;--c2:#a9d3e8">
+        <div class="cab"><span>🥂</span><h2>La celebración y la comida</h2></div>
+        <div class="cuerpo">
+          <h3>Four Seasons Hotel Madrid</h3>
+          <p>Calle de Sevilla, 3, Madrid · Desde las 12:00.</p>
+          <iframe loading="lazy" title="Mapa del Four Seasons Hotel Madrid" src="https://maps.google.com/maps?q=Four+Seasons+Hotel+Madrid&amp;output=embed"></iframe>
+          <a class="boton" href="https://www.google.com/maps/search/?api=1&amp;query=Four+Seasons+Hotel+Madrid" target="_blank" rel="noopener">Abrir en Google Maps</a>
+        </div>
+      </section>
+    </div>
+    <div class="notas">
+      <div style="--c:#e9b8b5"><h3>Vestimenta</h3><p>Elegante y cómoda: hay mucho que bailar.</p></div>
+      <div style="--c:#a9d3e8"><h3>Confirmación</h3><p>Avisadnos de vuestra asistencia antes del 11 de julio de 2027.</p></div>
+      <div style="--c:#b9d1a6"><h3>Alergias</h3><p>Contadnos si necesitáis un menú especial.</p></div>
+    </div>
+  </main>
+  <script src="/app.js"></script>
+  <script>iniciar();</script>
+</body>
+</html>
