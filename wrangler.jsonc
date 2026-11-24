@@ -12,7 +12,7 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "mi-web-db",
+      "database_name": "pruebawebclaudedb",
       // 2) Pega aquí el ID de tu base de datos D1
       "database_id": "aeae5f61-7faa-4e12-b071-01317b3e6b94"
     }
