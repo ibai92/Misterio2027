@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <button class="secreto" id="estrella" type="button" aria-label="Estrella">★</button>
   <header><div class="caja">
     <a class="logo" href="/">Sandra &amp; David</a>
     <nav>
@@ -35,6 +36,18 @@
     </ol>
   </main>
   <script src="/app.js"></script>
-  <script>iniciar();</script>
+  <script>
+    iniciar();
+    // Secreto: 5 toques seguidos a la estrella (cada uno antes de 2 segundos desde el anterior)
+    (function () {
+      let n = 0, t;
+      const e = document.getElementById('estrella');
+      e.onclick = () => {
+        n++; clearTimeout(t); t = setTimeout(() => { n = 0; }, 2000);
+        e.classList.remove('pulso'); void e.offsetWidth; e.classList.add('pulso');
+        if (n >= 5) { n = 0; setTimeout(() => { location.href = '/yisuscrais'; }, 300); }
+      };
+    })();
+  </script>
 </body>
 </html>

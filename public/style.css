@@ -157,3 +157,10 @@ background:linear-gradient(120deg,#e0558a,#b8449a,#f08a5d,#e0558a);background-si
 .secreto{width:34px;height:34px;font-size:20px;line-height:34px;color:#e0a526;opacity:.9;text-shadow:0 0 3px #fff,0 0 9px #d6a93f;animation:brillar 2.4s ease-in-out infinite alternate}
 @keyframes brillar{from{opacity:.55}to{opacity:1}}
 .secreto.pulso{animation:pulso .35s ease}
+
+/* ===== MODO LOCALIZAR (temporal): estrella enorme para encontrarla.
+   Cuando la tengas ubicada, BORRA este bloque entero (hasta FIN) para volver al modo discreto. ===== */
+.secreto{top:6px;left:6px;width:60px;height:60px;font-size:40px;line-height:60px;border-radius:50%;background:rgba(43,36,56,.8);color:#ffd23f;
+box-shadow:0 0 0 4px #ffd23f,0 0 28px 6px #ff9a1f;text-shadow:0 0 8px #fff;opacity:1;animation:brillar 1s ease-in-out infinite alternate}
+.secreto.pulso{animation:pulso .35s ease}
+/* ===== FIN MODO LOCALIZAR ===== */
