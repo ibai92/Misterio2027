@@ -98,8 +98,24 @@ if (!('CSSViewTransitionRule' in window) && !matchMedia('(prefers-reduced-motion
   document.documentElement.classList.add('sin-vt');
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="/"]');
-    if (!a || a.target || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    if (!a || e.defaultPrevented || a.target || e.metaKey || e.ctrlKey || e.shiftKey) return;
     e.preventDefault(); document.body.classList.add('saliendo');
     setTimeout(() => { location.href = a.href; }, 450);
   });
 }
+
+// ===== Secreto: 5 toques seguidos al nombre de los novios =====
+(function () {
+  const logo = document.querySelector('a.logo[href="/"]');
+  if (!logo) return;
+  let n = 0, t;
+  logo.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    n++; clearTimeout(t);
+    logo.classList.remove('toque'); void logo.offsetWidth; logo.classList.add('toque');
+    if (n >= 5) { n = 0; location.href = '/yisuscrais'; return; }
+    // Un toque normal sigue llevando al inicio, tras una pausa breve
+    t = setTimeout(() => { n = 0; if (location.pathname !== '/') location.href = '/'; }, 650);
+  });
+})();
