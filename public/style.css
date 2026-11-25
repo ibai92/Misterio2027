@@ -144,3 +144,16 @@ background:linear-gradient(120deg,#e0558a,#b8449a,#f08a5d,#e0558a);background-si
 @media(prefers-reduced-motion:reduce){
 ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
 .gigante{animation:none}.linea li{animation:none!important}}
+
+/* ===== v6: estrella secreta y minijuego ===== */
+.secreto{position:fixed;top:0;left:0;z-index:30;width:26px;height:26px;padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:var(--oro);font-size:12px;line-height:26px;cursor:pointer;opacity:.85;text-shadow:0 0 6px #fff}
+.secreto:hover{filter:none;opacity:1}
+.secreto.pulso{animation:pulso .35s ease}
+@keyframes pulso{50%{transform:scale(2.2) rotate(72deg)}}
+.hud{display:flex;justify-content:center;gap:1.6rem;flex-wrap:wrap;margin:1rem 0;font-weight:500;font-size:1.15rem}
+#juego{display:block;width:100%;height:auto;aspect-ratio:900/560;border-radius:18px;border:2px solid var(--oro);box-shadow:0 18px 50px #2b243855;touch-action:none;cursor:crosshair;background:#14134a}
+
+/* v7: estrella secreta un poco más visible (sigue siendo pequeña) */
+.secreto{width:34px;height:34px;font-size:20px;line-height:34px;color:#e0a526;opacity:.9;text-shadow:0 0 3px #fff,0 0 9px #d6a93f;animation:brillar 2.4s ease-in-out infinite alternate}
+@keyframes brillar{from{opacity:.55}to{opacity:1}}
+.secreto.pulso{animation:pulso .35s ease}
