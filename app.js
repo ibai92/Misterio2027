@@ -98,7 +98,7 @@ if (!('CSSViewTransitionRule' in window) && !matchMedia('(prefers-reduced-motion
   document.documentElement.classList.add('sin-vt');
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="/"]');
-    if (!a || a.target || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    if (!a || e.defaultPrevented || a.target || e.metaKey || e.ctrlKey || e.shiftKey) return;
     e.preventDefault(); document.body.classList.add('saliendo');
     setTimeout(() => { location.href = a.href; }, 450);
   });

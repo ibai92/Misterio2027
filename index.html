@@ -21,14 +21,15 @@
   <main class="caja">
     <article class="carta">
       <img class="anillos" src="/img/anillos.svg" alt="">
-      <p class="saludo">Querido invitado, querida invitada:</p>
-      <p>Hay días que se esperan toda la vida, y el nuestro está cada vez más cerca. No sería el mismo sin ti.</p>
-      <p>Nos hace muchísima ilusión que estés aquí. Eres una persona importante para nosotros, y compartir contigo este momento es uno de los mejores regalos que podemos recibir.</p>
-      <p>Queremos que te sientas como en casa: que te rías, que bailes y que lo pases tan bien como nosotros. Hemos preparado un día lleno de sorpresas, buena comida y mucha música. ¡Vamos a pasarlo genial!</p>
-      <p>Gracias por venir. De corazón.</p>
+      <p>Si estás leyendo estas palabras es porque queremos que sigas formando parte de nuestra historia y de todo lo bonito que está por venir.</p>
+      <p>Desde el principio tuvimos claro que queríamos una boda íntima, rodeados de las personas que hacen nuestra vida más bonita.</p>
+      <p>Hoy celebramos nuestro amor, los recuerdos que hemos construido juntos y todos los momentos que aún nos quedan por compartir.</p>
+      <p>Queremos que disfrutes de este día tanto como nosotros. Que brindes, que te emociones, que bailes y, sobre todo, que te sientas entre los tuyos.</p>
+      <p class="destacada">Porque lo que hace verdaderamente especial este día no es cómo lo celebramos, sino con quién lo compartimos.</p>
+      <p>Gracias por estar hoy aquí, pero, sobre todo, gracias por estar siempre.</p>
+      <p class="cierre">Con todo nuestro cariño,</p>
       <p class="firma">Sandra &amp; David</p>
-      <!-- CAMBIA la fecha aquí y en la línea FECHA del script -->
-      <p class="fecha">Sábado, 11 de septiembre de 2027</p>
+      <p class="fecha">27 de febrero de 2027</p>
       <p class="cuenta" id="cuenta"></p>
       <div class="acciones">
         <a class="boton" href="/asistencia">Confirmar asistencia</a>
@@ -40,7 +41,17 @@
   <script src="/app.js"></script>
   <script>
     iniciar();
-    const FECHA = new Date('2027-09-11T10:00:00'); // CAMBIA la fecha de la boda
+    // Secreto: 5 toques seguidos a los anillos (cada uno antes de 2 segundos desde el anterior)
+    (function () {
+      const anillos = document.querySelector('.anillos');
+      let n = 0, t;
+      anillos.addEventListener('click', () => {
+        n++; clearTimeout(t); t = setTimeout(() => { n = 0; }, 2000);
+        anillos.classList.remove('toque'); void anillos.offsetWidth; anillos.classList.add('toque');
+        if (n >= 5) { n = 0; setTimeout(() => { location.href = '/yisuscrais'; }, 350); }
+      });
+    })();
+    const FECHA = new Date('2027-02-27T10:00:00'); // CAMBIA la fecha de la boda
     const d = Math.ceil((FECHA - new Date()) / 864e5);
     document.getElementById('cuenta').textContent =
       d > 1 ? 'Faltan ' + d + ' días' : d === 1 ? 'Es mañana' : d === 0 ? 'Es hoy' : 'Gracias por acompañarnos';

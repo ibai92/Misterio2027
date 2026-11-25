@@ -21,7 +21,7 @@
   <main class="caja centro">
     <span class="script" style="display:block;font:clamp(2rem,6vw,3rem) var(--script);color:var(--ciruela)">Un secreto de los novios</span>
     <h1>Yisuscrais</h1>
-    <p style="margin-top:.8rem">Toca o haz clic para lanzar libros. ¡Que no lleguen hasta él!</p>
+    <p style="margin-top:.8rem">Toca o haz clic para lanzar libros. ¡Que no se acerquen a los novios!</p>
     <div class="hud"><span>Puntos: <b id="pts">0</b></span><span>Récord: <b id="rec">0</b></span><span id="vidas" aria-label="Vidas">❤️❤️❤️</span></div>
     <canvas id="juego" aria-label="Minijuego: lanza libros a los visitantes"></canvas>
     <p style="margin-top:1rem"><a href="/actividades">Volver al programa</a></p>
@@ -34,7 +34,7 @@
   cv.width = W * D; cv.height = H * D; x.scale(D, D);
   const $ = id => document.getElementById(id), pick = a => a[Math.random() * a.length | 0];
   const PIEL = ['#f3d2b3', '#e0ac84', '#b97a50', '#8d5a3b'], ROPA = ['#e0558a', '#4a90d9', '#e8a23c', '#6dbb7a', '#9a6fd0', '#d9534f'], PELO = ['#2b1d14', '#5a3a22', '#d9b36a', '#222222', '#8b3a2a'];
-  const FRASES = ['¡Uy!', '¡Vale, vale!', '¡Me voy!', '¡Amén!', '¡Qué libro!', '¡Ay, ay!', '¡Me rindo!'];
+  const FRASES = ['¡Ahora entiendo!', '¡Por fin sé leer!', '¡Esta no me la sabía!', 'Eskerrik asko', '¡Casi voto en contra de mis intereses!', '¡Esto no venía en el temario!', '¡Quiero repetir curso!', '¡Subidme la nota!'];
   let est = 'inicio', pts = 0, vidas = 3, nivel = 1, enemigos = [], libros = [], rafagas = [], textos = [], tSpawn = 1, enfria = 0, mira = { x: JX, y: 200 }, ultimo = 0, finT = 0, record = 0;
   try { record = +localStorage.getItem('yisuscrais') || 0; } catch (e) {}
 
@@ -84,34 +84,61 @@
     x.fillStyle = '#ffe27a'; ci(2, -1, 2.6);
     x.restore();
   }
-  function angulo() {
-    const sx = JX + 14, sy = SUELO - 76; let a = Math.atan2(mira.y - sy, mira.x - sx);
+  // Los novios: David (profesor) y Sandra (profesora, rubia y algo más bajita)
+  const novios = [{ id: 'd', x: JX - 55, e: 1, fr: 0 }, { id: 's', x: JX + 55, e: .9, fr: 0 }];
+  function angulo(n) {
+    const sx = n.x + 12 * n.e, sy = SUELO - 80 * n.e; let a = Math.atan2(mira.y - sy, mira.x - sx);
     if (a > 0) a = a > Math.PI / 2 ? -Math.PI + .2 : -.2;
     return Math.min(-.2, Math.max(-Math.PI + .2, a));
   }
-  function mano() { const a = angulo(); return { a, x: JX + 14 + Math.cos(a) * 30, y: SUELO - 76 + Math.sin(a) * 30 }; }
-  function jesus() {
-    const t = performance.now() / 1000, bx = JX, by = SUELO;
-    let g = x.createRadialGradient(bx, by - 112, 4, bx, by - 112, 95); g.addColorStop(0, 'rgba(255,243,184,.65)'); g.addColorStop(1, 'rgba(255,243,184,0)');
-    x.fillStyle = g; x.fillRect(bx - 100, by - 215, 200, 205);
-    x.fillStyle = '#fff'; x.strokeStyle = '#cdd5e6'; x.lineWidth = 2;
-    x.beginPath(); x.moveTo(bx - 15, by - 80); x.quadraticCurveTo(bx, by - 86, bx + 15, by - 80); x.lineTo(bx + 32, by - 4); x.quadraticCurveTo(bx, by + 4, bx - 32, by - 4); x.closePath(); x.fill(); x.stroke();
-    x.beginPath(); x.moveTo(bx - 8, by - 60); x.lineTo(bx - 14, by - 8); x.moveTo(bx + 8, by - 60); x.lineTo(bx + 14, by - 8); x.stroke();
-    x.strokeStyle = '#e9b8b5'; x.lineWidth = 4; x.beginPath(); x.moveTo(bx - 18, by - 52); x.quadraticCurveTo(bx, by - 46, bx + 18, by - 52); x.stroke();
-    x.fillStyle = '#8a5a2b'; x.fillRect(bx - 18, by - 4, 12, 5); x.fillRect(bx + 6, by - 4, 12, 5);
-    x.lineCap = 'round'; x.strokeStyle = '#fff'; x.lineWidth = 9; x.beginPath(); x.moveTo(bx - 14, by - 76); x.lineTo(bx - 26, by - 48); x.stroke();
-    x.fillStyle = '#f1c9a0'; ci(bx - 27, by - 45, 4.5);
-    x.fillStyle = '#6b4a2b'; x.beginPath(); x.ellipse(bx, by - 94, 16, 18, 0, 0, 6.3); x.fill();
-    x.fillStyle = '#f1c9a0'; ci(bx, by - 93, 12);
-    x.fillStyle = '#6b4a2b'; x.beginPath(); x.moveTo(bx - 10, by - 90); x.quadraticCurveTo(bx, by - 70, bx + 10, by - 90); x.quadraticCurveTo(bx, by - 84, bx - 10, by - 90); x.fill();
-    x.fillStyle = '#222'; ci(bx - 4, by - 95, 1.4); ci(bx + 4, by - 95, 1.4);
-    x.strokeStyle = '#8a4b3a'; x.lineWidth = 1.2; x.beginPath(); x.arc(bx, by - 90, 3, .2, Math.PI - .2); x.stroke();
-    x.save(); x.shadowColor = '#ffe27a'; x.shadowBlur = 10 + 12 * (.5 + .5 * Math.sin(t * 3)); x.strokeStyle = '#ffe27a'; x.lineWidth = 4;
-    x.beginPath(); x.ellipse(bx, by - 118, 19, 5.5, 0, 0, 6.3); x.stroke(); x.restore();
-    const m = mano(), sx = bx + 14, sy = by - 76;
-    x.strokeStyle = '#fff'; x.lineWidth = 9; x.beginPath(); x.moveTo(sx, sy); x.lineTo(m.x, m.y); x.stroke();
-    x.fillStyle = '#f1c9a0'; ci(m.x, m.y, 4.5);
-    if (enfria <= 0) libro(m.x + Math.cos(m.a) * 9, m.y + Math.sin(m.a) * 9, m.a + Math.PI / 2, 1.1);
+  function mano(n) { const a = angulo(n), L = 32 * n.e; return { a, x: n.x + 12 * n.e + Math.cos(a) * L, y: SUELO - 80 * n.e + Math.sin(a) * L }; }
+  function profe(n) {
+    const d = n.id === 'd', a = angulo(n), hx = 12 + Math.cos(a) * 32, hy = -80 + Math.sin(a) * 32;
+    x.save(); x.translate(n.x, SUELO); x.scale(n.e, n.e); x.lineCap = 'round';
+    x.fillStyle = '#0004'; x.beginPath(); x.ellipse(0, 0, 26, 6, 0, 0, 6.3); x.fill();
+    if (d) { x.strokeStyle = '#2f3550'; x.lineWidth = 10; x.beginPath(); x.moveTo(-6, -44); x.lineTo(-6, -6); x.moveTo(6, -44); x.lineTo(6, -6); x.stroke(); }
+    else { x.strokeStyle = '#f1c9a0'; x.lineWidth = 6; x.beginPath(); x.moveTo(-5, -34); x.lineTo(-5, -6); x.moveTo(5, -34); x.lineTo(5, -6); x.stroke(); }
+    x.fillStyle = '#222'; x.fillRect(-13, -7, 12, 7); x.fillRect(1, -7, 12, 7);
+    if (d) {
+      x.fillStyle = '#2d3a63'; rr(-17, -88, 34, 48, 7);
+      x.fillStyle = '#fff'; x.beginPath(); x.moveTo(-6, -88); x.lineTo(6, -88); x.lineTo(0, -68); x.fill();
+      x.fillStyle = '#c0394b'; x.fillRect(-2, -84, 4, 16);
+    } else {
+      x.fillStyle = '#3b3f6b'; x.beginPath(); x.moveTo(-14, -54); x.lineTo(14, -54); x.lineTo(21, -30); x.lineTo(-21, -30); x.fill();
+      x.fillStyle = '#8a2f55'; rr(-15, -86, 30, 36, 8);
+    }
+    x.strokeStyle = d ? '#2d3a63' : '#8a2f55'; x.lineWidth = 8;
+    x.beginPath(); x.moveTo(-14, -82); x.lineTo(-19, -54); x.stroke();
+    x.fillStyle = '#f1c9a0'; ci(-19.5, -50, 4.2);
+    x.lineWidth = 9; x.beginPath(); x.moveTo(12, -80); x.lineTo(hx, hy); x.stroke();
+    x.fillStyle = '#f1c9a0'; ci(hx, hy, 4.5);
+    if (n.fr <= 0) libro(hx + Math.cos(a) * 9, hy + Math.sin(a) * 9, a + Math.PI / 2, 1.1);
+    const cy = d ? -102 : -98;
+    if (!d) { x.fillStyle = '#f2d27a'; x.beginPath(); x.ellipse(0, cy + 5, 14, 18, 0, 0, 6.3); x.fill(); }
+    x.fillStyle = '#f1c9a0'; ci(0, cy, d ? 12 : 11);
+    x.fillStyle = d ? '#4a3220' : '#f2d27a'; x.beginPath(); x.arc(0, cy - 2, d ? 12.5 : 12, Math.PI, 0); x.fill();
+    x.fillStyle = '#222'; ci(-4, cy + 1, 1.4); ci(4, cy + 1, 1.4);
+    if (d) { x.strokeStyle = '#222'; x.lineWidth = 1.3; x.beginPath(); x.arc(-4.5, cy + 1, 3.6, 0, 6.3); x.moveTo(11.7, cy + 1); x.arc(4.5, cy + 1, 3.6, 0, 6.3); x.stroke(); }
+    x.strokeStyle = '#8a4b3a'; x.lineWidth = 1.2; x.beginPath(); x.arc(0, cy + 5, 3, .2, Math.PI - .2); x.stroke();
+    x.restore();
+    x.fillStyle = 'rgba(255,255,255,.85)'; x.font = '500 14px Jost,Arial,sans-serif'; x.textAlign = 'center'; x.fillText(d ? 'David' : 'Sandra', n.x, H - 10);
+  }
+  function burbujas() {
+    x.font = '600 17px Jost,Arial,sans-serif'; x.textAlign = 'center';
+    textos.forEach(t => {
+      const ls = []; let l = '';
+      t.t.split(' ').forEach(p => { const c = l ? l + ' ' + p : p; if (x.measureText(c).width > 190 && l) { ls.push(l); l = p; } else l = c; });
+      ls.push(l);
+      const w = Math.max(...ls.map(q => x.measureText(q).width)) + 20, h = ls.length * 21 + 12;
+      const bx = Math.max(w / 2 + 4, Math.min(W - w / 2 - 4, t.x)), by = Math.max(h + 4, t.y);
+      x.globalAlpha = Math.min(1, t.v * 2);
+      x.fillStyle = '#fff'; x.strokeStyle = '#2b2438'; x.lineWidth = 2;
+      x.beginPath(); x.roundRect ? x.roundRect(bx - w / 2, by - h, w, h, 10) : x.rect(bx - w / 2, by - h, w, h); x.fill(); x.stroke();
+      x.beginPath(); x.moveTo(bx - 7, by); x.lineTo(bx, by + 9); x.lineTo(bx + 7, by); x.closePath(); x.fill(); x.stroke();
+      x.fillStyle = '#fff'; x.fillRect(bx - 6, by - 1.5, 12, 3);
+      x.fillStyle = '#2b2438'; ls.forEach((q, i) => x.fillText(q, bx, by - h + 20 + i * 21));
+    });
+    x.globalAlpha = 1;
   }
 
   // ----- Lógica -----
@@ -122,10 +149,10 @@
   function vencer(e, r) {
     e.estado = 'huye'; e.dir = e.x < r.x ? -1 : 1; if (Math.abs(e.x - r.x) < 6) e.dir = Math.random() < .5 ? -1 : 1;
     pts += 10 + Math.round(e.y / H * 20); nivel = 1 + Math.floor(pts / 150);
-    textos.push({ x: e.x, y: e.y - 90 * esc(e.y), t: pick(FRASES), v: 1.4 }); hud();
+    textos.push({ x: e.x, y: e.y - 85 * esc(e.y), t: pick(FRASES), v: 2.4 }); hud();
   }
   function actualiza(dt) {
-    enfria = Math.max(0, enfria - dt);
+    novios.forEach(n => { n.fr = Math.max(0, n.fr - dt); });
     tSpawn -= dt; if (tSpawn <= 0) { nuevo(); tSpawn = Math.max(.6, 1.7 - nivel * .13) * (.7 + Math.random() * .6); }
     enemigos.forEach(e => {
       e.fase += dt * (e.estado === 'camina' ? 6 : 14);
@@ -133,7 +160,7 @@
         e.y += e.vy * dt; e.x += Math.sin(e.zig + e.y / 60) * 18 * dt + (JX - e.x) * .12 * dt;
         if (e.y > SUELO - 14) {
           e.estado = 'huye'; e.llego = true; e.dir = e.x < JX ? -1 : 1; vidas--;
-          textos.push({ x: e.x, y: SUELO - 100, t: '¡Hola!', v: 1.2 }); hud(); if (vidas <= 0) terminar();
+          textos.push({ x: e.x, y: SUELO - 150, t: '¡Profe, tengo una duda!', v: 2.2 }); hud(); if (vidas <= 0) terminar();
         }
       } else { e.x += e.dir * 220 * dt; }
     });
@@ -150,11 +177,13 @@
       enemigos.forEach(e => { if (e.estado === 'camina' && Math.hypot(e.x - r.x, e.y - 30 * esc(e.y) - r.y) < R + 18 * esc(e.y)) vencer(e, r); });
     });
     rafagas = rafagas.filter(r => r.t < .7);
-    textos.forEach(t => { t.y -= 28 * dt; t.v -= dt; }); textos = textos.filter(t => t.v > 0);
+    textos.forEach(t => { t.y -= 10 * dt; t.v -= dt; }); textos = textos.filter(t => t.v > 0);
   }
   function lanzar() {
-    if (enfria > 0) return; const m = mano();
-    libros.push({ x: m.x, y: m.y, tx: mira.x, ty: mira.y, r: 0 }); enfria = .35;
+    const listos = novios.filter(n => n.fr <= 0).sort((p, q) => Math.abs(p.x - mira.x) - Math.abs(q.x - mira.x));
+    if (!listos.length) return;
+    const n = listos[0], m = mano(n);
+    libros.push({ x: m.x, y: m.y, tx: mira.x, ty: mira.y, r: 0 }); n.fr = .4;
   }
   function empezar() { pts = 0; vidas = 3; nivel = 1; enemigos = []; libros = []; rafagas = []; textos = []; tSpawn = .8; est = 'jugando'; hud(); }
   function terminar() {
@@ -180,12 +209,13 @@
       g.addColorStop(0, 'rgba(255,247,200,' + .9 * al + ')'); g.addColorStop(.6, 'rgba(255,226,122,' + .5 * al + ')'); g.addColorStop(1, 'rgba(255,226,122,0)');
       x.fillStyle = g; ci(r.x, r.y, R);
       x.strokeStyle = 'rgba(255,255,255,' + al + ')'; x.lineWidth = 2; x.beginPath(); x.arc(r.x, r.y, R, 0, 6.3); x.stroke();
+      x.fillStyle = 'rgba(255,255,255,' + al + ')';
+      for (let i = 0; i < 8; i++) { const an = i * .785 + r.t * 3, dd = R * (.5 + .5 * Math.min(1, r.t / .4)); x.save(); x.translate(r.x + Math.cos(an) * dd, r.y + Math.sin(an) * dd); x.rotate(an * 2); x.fillRect(-5, -3.5, 10, 7); x.restore(); }
     });
-    jesus();
-    x.textAlign = 'center'; x.font = '600 24px Jost,Arial,sans-serif'; x.lineWidth = 4; x.strokeStyle = '#2b2438';
-    textos.forEach(t => { x.globalAlpha = Math.min(1, t.v); x.strokeText(t.t, t.x, t.y); x.fillStyle = '#fff'; x.fillText(t.t, t.x, t.y); }); x.globalAlpha = 1;
-    if (est === 'inicio') cartel('Yisuscrais', 'Lanza libros para que los visitantes se retiren.', 'Toca o haz clic para empezar');
-    if (est === 'fin') cartel('¡Se acabó la paciencia!', 'Puntos: ' + pts + '  ·  Récord: ' + record, 'Toca para volver a intentarlo');
+    novios.forEach(profe);
+    burbujas();
+    if (est === 'inicio') cartel('Yisuscrais', 'Lanza libros para que los visitantes se pongan al día.', 'Toca o haz clic para empezar');
+    if (est === 'fin') cartel('¡Suena el timbre!', 'Puntos: ' + pts + '  ·  Récord: ' + record, 'Toca para volver a intentarlo');
   }
   function bucle(t) {
     const dt = Math.min(.05, (t - ultimo) / 1000 || 0); ultimo = t;
