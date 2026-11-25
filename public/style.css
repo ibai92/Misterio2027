@@ -92,3 +92,55 @@ background:radial-gradient(ellipse at 85% 8%,#3d3170 0,transparent 45%),radial-g
 .linea li,.linea li:nth-child(even){width:auto;margin-left:3.4rem;justify-self:auto}
 .linea li::after,.linea li:nth-child(even)::after{left:-3.4rem;right:auto}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.noche::after{animation:none}@view-transition{navigation:none}}
+
+/* ===== v5: fondo, transiciones, asistencia, programa grande ===== */
+#cielo{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+nav a.cta{background:linear-gradient(135deg,#e0558a,#b8449a);color:#fff;border:0;border-radius:999px;padding:.3rem 1.1rem;box-shadow:0 4px 12px #b8449a55}
+nav a.cta:hover,nav a.cta[aria-current]{filter:brightness(1.12)}
+/* Transición mágica: la nueva página se abre como un iris dorado */
+::view-transition-old(root){animation:salida .5s ease both}
+::view-transition-new(root){animation:entrada .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes salida{to{opacity:0;filter:blur(10px) brightness(1.5);transform:scale(1.05)}}
+@keyframes entrada{from{clip-path:circle(0% at 50% 45%);filter:brightness(1.8) blur(8px)}to{clip-path:circle(150% at 50% 45%);filter:none}}
+.sin-vt body{animation:aparecer .8s ease both}
+.sin-vt body.saliendo{opacity:0;filter:blur(10px);transform:scale(1.03);transition:.45s ease}
+@keyframes aparecer{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:none}}
+/* Confirmar asistencia */
+.asistencia{min-height:calc(100dvh - 6rem);display:grid;align-content:center;justify-items:center}
+.asistencia .script{font:clamp(2rem,6vw,3rem) var(--script);color:var(--ciruela)}
+.asistencia h1{margin:.4rem 0 1rem}
+.gigante{display:block;width:min(100%,48rem);margin:2rem auto 1.2rem;padding:clamp(1.8rem,7vw,3.6rem) 1.5rem;border-radius:999px;font:600 clamp(1.8rem,7.4vw,4.2rem)/1.1 var(--serif);letter-spacing:.02em;
+background:linear-gradient(120deg,#e0558a,#b8449a,#f08a5d,#e0558a);background-size:300% 100%;box-shadow:0 0 0 0 #e0558a99,0 22px 50px #b8449a66;animation:latido 2.2s ease-out infinite,fluir 7s linear infinite;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.gigante:hover{transform:scale(1.05) rotate(-.7deg);filter:brightness(1.08)}
+.gigante:active{transform:scale(.97)}
+.gigante.hecho{background:linear-gradient(120deg,#3fa57b,#7cc7a0,#d6b36a,#3fa57b);background-size:300% 100%}
+@keyframes latido{0%{box-shadow:0 0 0 0 #e0558a99,0 22px 50px #b8449a66}70%,100%{box-shadow:0 0 0 38px #e0558a00,0 22px 50px #b8449a66}}
+@keyframes fluir{to{background-position:300% 0}}
+.pequeno{background:none;box-shadow:none;color:var(--ciruela);text-decoration:underline;font-size:.95rem;padding:.5rem 1rem}
+.pequeno:hover{filter:none;background:#ffffff80}
+.estado{min-height:3.2rem;font:italic 500 1.5rem var(--serif);color:var(--ciruela);margin-top:1rem}
+.estado.msg.error{color:#a3261f;font:1rem var(--sans)}
+/* Programa: letra grande y efectos con el ratón */
+.titulo h1{font-size:clamp(3rem,10vw,5.8rem)}
+.linea{max-width:68rem;gap:2.2rem}
+.linea li{padding:1.7rem 2rem 1.8rem;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .35s}
+.linea time{font-size:1.25rem;letter-spacing:.05em}
+.linea h3{font-size:clamp(2.1rem,4.8vw,3rem);margin:.15rem 0 .4rem;transition:color .3s,letter-spacing .3s}
+.linea p{font-size:1.3rem;line-height:1.55}
+.linea li::after{width:3.2rem;height:3.2rem;font-size:1.7rem;right:-3.8rem;transition:transform .55s cubic-bezier(.3,1.6,.5,1)}
+.linea li:nth-child(even)::after{right:auto;left:-3.8rem}
+@media(hover:hover){
+.linea li:hover{transform:translateY(-8px) scale(1.035) rotate(-.4deg);box-shadow:0 24px 50px color-mix(in srgb,var(--c) 55%,transparent),0 0 0 3px var(--c);background:linear-gradient(135deg,#fffdf8,color-mix(in srgb,var(--c) 28%,#fffdf8))}
+.linea li:nth-child(even):hover{transform:translateY(-8px) scale(1.035) rotate(.4deg)}
+.linea li:hover::after{transform:scale(1.3) rotate(360deg)}
+.linea li:hover h3{color:var(--ciruela);letter-spacing:.02em}}
+@supports (animation-timeline:view()){
+.linea li{animation:subir linear both;animation-timeline:view();animation-range:entry 0% entry 55%}}
+@keyframes subir{from{opacity:0;translate:0 50px}}
+@media(max-width:760px){
+.linea::before{left:1.8rem}
+.linea li,.linea li:nth-child(even){margin-left:4rem}
+.linea li::after,.linea li:nth-child(even)::after{left:-3.8rem;right:auto}}
+@media(prefers-reduced-motion:reduce){
+::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+.gigante{animation:none}.linea li{animation:none!important}}

@@ -8,11 +8,12 @@
 </head>
 <body>
   <header><div class="caja">
-    <a class="logo" href="/">Ana &amp; Carlos</a>
+    <a class="logo" href="/">Sandra &amp; David</a>
     <nav>
       <a href="/">Invitación</a>
       <a href="/actividades">Actividades</a>
       <a href="/informacion">Información</a>
+      <a class="cta" href="/asistencia">Confirmar asistencia</a>
       <a href="/panel" id="adminlink" hidden>Administración</a>
       <button class="sec" id="salir">Cerrar sesión</button>
     </nav>
@@ -31,8 +32,9 @@
         <button type="submit">Crear usuario</button>
         <p id="msg" class="msg" role="status"></p>
       </form>
+      <p id="resumen" class="msg" style="margin-top:1.5rem"></p>
       <div class="tabla"><table>
-        <thead><tr><th>Correo</th><th>Rol</th><th></th></tr></thead>
+        <thead><tr><th>Correo</th><th>Rol</th><th>Asistencia</th><th></th></tr></thead>
         <tbody id="lista"></tbody>
       </table></div>
     </section>
@@ -44,9 +46,11 @@
 
     async function cargar() {
       const { users } = await api('users');
+      const n = e => users.filter(u => u.estado === e).length;
+      $('resumen').textContent = 'Confirmados: ' + n('si') + ' · No asisten: ' + n('no') + ' · Sin respuesta: ' + users.filter(u => !u.estado).length;
       $('lista').replaceChildren(...users.map(u => {
         const tr = document.createElement('tr');
-        [u.email, u.role === 'admin' ? 'Administrador' : 'Usuario'].forEach(t => {
+        [u.email, u.role === 'admin' ? 'Administrador' : 'Usuario', u.estado === 'si' ? 'Confirmada' : u.estado === 'no' ? 'No asiste' : 'Sin respuesta'].forEach(t => {
           const td = document.createElement('td'); td.textContent = t; tr.append(td);
         });
         const td = document.createElement('td');

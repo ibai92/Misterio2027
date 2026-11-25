@@ -10,3 +10,8 @@ CREATE TABLE sessions (
   user_id INTEGER NOT NULL,
   expires INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS rsvp (
+  user_id INTEGER PRIMARY KEY,
+  estado TEXT NOT NULL,
+  actualizado INTEGER NOT NULL
+);

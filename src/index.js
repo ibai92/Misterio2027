@@ -60,11 +60,25 @@ async function api(request, env, ruta) {
   if (!yo) return json({ error: 'Sesión no iniciada' }, 401);
   if (ruta === 'me') return json({ email: yo.email, role: yo.role });
 
+  // Confirmación de asistencia (cada persona guarda la suya)
+  if (ruta === 'rsvp') {
+    await env.DB.prepare('CREATE TABLE IF NOT EXISTS rsvp (user_id INTEGER PRIMARY KEY, estado TEXT NOT NULL, actualizado INTEGER NOT NULL)').run();
+    if (!post) {
+      const r = await env.DB.prepare('SELECT estado FROM rsvp WHERE user_id=?').bind(yo.id).first();
+      return json({ estado: r ? r.estado : null });
+    }
+    if (!['si', 'no'].includes(d.estado)) return json({ error: 'Respuesta no válida' }, 400);
+    await env.DB.prepare('INSERT INTO rsvp (user_id,estado,actualizado) VALUES (?,?,?) ON CONFLICT(user_id) DO UPDATE SET estado=excluded.estado, actualizado=excluded.actualizado')
+      .bind(yo.id, d.estado, Date.now()).run();
+    return json({ ok: true });
+  }
+
   // A partir de aquí, solo administradores
   if (yo.role !== 'admin') return json({ error: 'No autorizado' }, 403);
 
   if (ruta === 'users' && !post) {
-    const { results } = await env.DB.prepare('SELECT id,email,role FROM users ORDER BY id').all();
+    await env.DB.prepare('CREATE TABLE IF NOT EXISTS rsvp (user_id INTEGER PRIMARY KEY, estado TEXT NOT NULL, actualizado INTEGER NOT NULL)').run();
+    const { results } = await env.DB.prepare('SELECT u.id,u.email,u.role,r.estado FROM users u LEFT JOIN rsvp r ON r.user_id=u.id ORDER BY u.id').all();
     return json({ users: results });
   }
   if (ruta === 'users' && post) {
@@ -76,6 +90,7 @@ async function api(request, env, ruta) {
   if (ruta === 'users/delete' && post) {
     if (d.id === yo.id) return json({ error: 'No puedes eliminarte a ti mismo' }, 400);
     await env.DB.prepare('DELETE FROM sessions WHERE user_id=?').bind(d.id).run();
+    await env.DB.prepare('DELETE FROM rsvp WHERE user_id=?').bind(d.id).run().catch(() => {});
     await env.DB.prepare('DELETE FROM users WHERE id=?').bind(d.id).run();
     return json({ ok: true });
   }
