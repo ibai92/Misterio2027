@@ -33,7 +33,7 @@ async function iniciar() {
   c.id = 'cielo'; c.setAttribute('aria-hidden', 'true');
   document.body.prepend(c);
   const x = c.getContext('2d');
-  const col = noche ? ['255,255,255', '246,227,176', '214,179,106'] : ['214,169,63', '224,85,138', '150,110,210'];
+  const col = noche ? ['255,247,214', '246,227,176', '230,190,110'] : ['196,140,50', '150,98,62', '228,170,60'];
   let W, H, fijas = [], fugaces = [], chispas = [], t0 = 0, aF = 0, aC = 0;
 
   function medir() {

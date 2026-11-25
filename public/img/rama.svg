@@ -7,6 +7,6 @@
 <ellipse cx="135" cy="58" rx="14" ry="6" transform="rotate(-50 135 58)"/><ellipse cx="148" cy="74" rx="14" ry="6" transform="rotate(35 148 74)"/>
 <ellipse cx="180" cy="36" rx="14" ry="6" transform="rotate(-50 180 36)"/><ellipse cx="192" cy="50" rx="14" ry="6" transform="rotate(35 192 50)"/>
 </g>
-<g fill="#e9b8b5"><circle cx="88" cy="84" r="8"/><circle cx="160" cy="48" r="8"/><circle cx="208" cy="20" r="7"/></g>
+<g fill="#e8b88a"><circle cx="88" cy="84" r="8"/><circle cx="160" cy="48" r="8"/><circle cx="208" cy="20" r="7"/></g>
 <g fill="#d6b36a"><circle cx="88" cy="84" r="2.8"/><circle cx="160" cy="48" r="2.8"/><circle cx="208" cy="20" r="2.4"/></g>
 </svg>
