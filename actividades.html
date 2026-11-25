@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Programa del día</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <button class="secreto" id="estrella" type="button" aria-label="Estrella">★</button>
+  <header><div class="caja">
+    <a class="logo" href="/">Sandra &amp; David</a>
+    <nav>
+      <a href="/">Invitación</a>
+      <a href="/actividades">Actividades</a>
+      <a href="/informacion">Información</a>
+      <a class="cta" href="/asistencia">Confirmar asistencia</a>
+      <a href="/panel" id="adminlink" hidden>Administración</a>
+      <button class="sec" id="salir">Cerrar sesión</button>
+    </nav>
+  </div></header>
+  <main class="caja">
+    <header class="titulo centro" style="background:none;border:0;backdrop-filter:none">
+      <span class="script" style="display:block;font:clamp(2rem,6vw,3rem) var(--script);color:var(--ciruela)">Nuestro gran día</span>
+      <h1>Programa</h1>
+      <p style="margin-top:.8rem">Siete momentos para vivir juntos, de las 10 de la mañana hasta el cierre.</p>
+    </header>
+    <ol class="linea">
+      <li data-i="💍" style="--c:#e9b8b5"><time>10:00 – 12:00</time><h3>Boda en el juzgado</h3><p>El momento del sí, quiero. Llega con tiempo y con pañuelos.</p></li>
+      <li data-i="🏨" style="--c:#c9b6e6"><time>12:00 – 14:00</time><h3>Hotel y bailoteo</h3><p>Nos trasladamos al hotel: recibimiento, brindis y los primeros pasos de baile.</p></li>
+      <li data-i="🍽️" style="--c:#f3d58a"><time>14:00 – 16:00</time><h3>Comida</h3><p>Mesa larga, buena comida y mejores brindis.</p></li>
+      <li data-i="🎲" style="--c:#a9d3e8"><time>16:00 – 18:00</time><h3>Juegos y sorpresas</h3><p>Concursos, regalos y alguna sorpresa que no vamos a contar.</p></li>
+      <li data-i="💃" style="--c:#f4a9c0"><time>18:00 – 20:00</time><h3>Baile</h3><p>La pista es vuestra. Mejor con zapatos cómodos.</p></li>
+      <li data-i="🥂" style="--c:#b9d1a6"><time>20:00 – 22:00</time><h3>Cena de picoteo</h3><p>Cena informal: pequeños bocados para recuperar fuerzas.</p></li>
+      <li data-i="🌙" style="--c:#9aa6e8"><time>22:00 – cierre</time><h3>Hasta el cierre</h3><p>La fiesta sigue hasta que el hotel nos eche.</p></li>
+    </ol>
+  </main>
+  <script src="/app.js"></script>
+  <script>
+    iniciar();
+    // Secreto: 5 toques seguidos a la estrella (cada uno antes de 2 segundos desde el anterior)
+    (function () {
+      let n = 0, t;
+      const e = document.getElementById('estrella');
+      e.onclick = () => {
+        n++; clearTimeout(t); t = setTimeout(() => { n = 0; }, 2000);
+        e.classList.remove('pulso'); void e.offsetWidth; e.classList.add('pulso');
+        if (n >= 5) { n = 0; setTimeout(() => { location.href = '/yisuscrais'; }, 300); }
+      };
+    })();
+  </script>
+</body>
+</html>

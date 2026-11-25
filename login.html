@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Una invitación te espera</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="noche">
+  <div class="luna"></div>
+  <main>
+    <div class="puerta">
+      <div class="sello">S&amp;D</div>
+      <h1>Una invitación te espera</h1>
+      <p>Alguien ha preparado algo muy especial. Solo quien conoce el secreto puede abrirla.</p>
+      <form id="f">
+        <div><label for="email">Correo electrónico</label><input id="email" type="email" required autocomplete="username"></div>
+        <div><label for="pass">Contraseña</label><input id="pass" type="password" required autocomplete="current-password"></div>
+        <button type="submit">Abrir la invitación</button>
+        <p id="msg" class="msg" role="status"></p>
+      </form>
+    </div>
+  </main>
+  <script src="/app.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    $('f').onsubmit = async e => {
+      e.preventDefault();
+      try { await api('login', { email: $('email').value, password: $('pass').value }); location.href = '/'; }
+      catch (err) { aviso($('msg'), err.message, true); }
+    };
+  </script>
+</body>
+</html>

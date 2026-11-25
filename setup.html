@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Primera configuración</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="noche">
+  <div class="luna"></div>
+  <main>
+    <div class="puerta">
+      <div class="sello">S&amp;D</div>
+      <h1>Primera configuración</h1>
+      <p>Crea aquí el administrador. Solo funciona una vez y con la clave de configuración.</p>
+      <form id="s">
+        <div><label for="sk">Clave de configuración</label><input id="sk" type="password" required></div>
+        <div><label for="se">Correo del administrador</label><input id="se" type="email" required></div>
+        <div><label for="sp">Contraseña (mínimo 8 caracteres)</label><input id="sp" type="password" minlength="8" required></div>
+        <button type="submit">Crear administrador</button>
+        <p id="msg" class="msg" role="status"></p>
+      </form>
+    </div>
+  </main>
+  <script src="/app.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    $('s').onsubmit = async e => {
+      e.preventDefault();
+      try {
+        await api('setup', { key: $('sk').value, email: $('se').value, password: $('sp').value });
+        aviso($('msg'), 'Administrador creado. Ya puedes entrar desde la página de acceso.');
+      } catch (err) { aviso($('msg'), err.message, true); }
+    };
+  </script>
+</body>
+</html>

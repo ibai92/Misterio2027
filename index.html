@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuestra invitación</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header><div class="caja">
+    <a class="logo" href="/">Sandra &amp; David</a>
+    <nav>
+      <a href="/">Invitación</a>
+      <a href="/actividades">Actividades</a>
+      <a href="/informacion">Información</a>
+      <a class="cta" href="/asistencia">Confirmar asistencia</a>
+      <a href="/panel" id="adminlink" hidden>Administración</a>
+      <button class="sec" id="salir">Cerrar sesión</button>
+    </nav>
+  </div></header>
+  <main class="caja">
+    <article class="carta">
+      <img class="anillos" src="/img/anillos.svg" alt="">
+      <p class="saludo">Querido invitado, querida invitada:</p>
+      <p>Hay días que se esperan toda la vida, y el nuestro está cada vez más cerca. No sería el mismo sin ti.</p>
+      <p>Nos hace muchísima ilusión que estés aquí. Eres una persona importante para nosotros, y compartir contigo este momento es uno de los mejores regalos que podemos recibir.</p>
+      <p>Queremos que te sientas como en casa: que te rías, que bailes y que lo pases tan bien como nosotros. Hemos preparado un día lleno de sorpresas, buena comida y mucha música. ¡Vamos a pasarlo genial!</p>
+      <p>Gracias por venir. De corazón.</p>
+      <p class="firma">Sandra &amp; David</p>
+      <!-- CAMBIA la fecha aquí y en la línea FECHA del script -->
+      <p class="fecha">Sábado, 11 de septiembre de 2027</p>
+      <p class="cuenta" id="cuenta"></p>
+      <div class="acciones">
+        <a class="boton" href="/asistencia">Confirmar asistencia</a>
+        <a class="boton claro" href="/actividades">Ver el programa</a>
+        <a class="boton claro" href="/informacion">Dónde y cómo llegar</a>
+      </div>
+    </article>
+  </main>
+  <script src="/app.js"></script>
+  <script>
+    iniciar();
+    const FECHA = new Date('2027-09-11T10:00:00'); // CAMBIA la fecha de la boda
+    const d = Math.ceil((FECHA - new Date()) / 864e5);
+    document.getElementById('cuenta').textContent =
+      d > 1 ? 'Faltan ' + d + ' días' : d === 1 ? 'Es mañana' : d === 0 ? 'Es hoy' : 'Gracias por acompañarnos';
+  </script>
+</body>
+</html>
