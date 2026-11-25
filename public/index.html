@@ -41,6 +41,16 @@
   <script src="/app.js"></script>
   <script>
     iniciar();
+    // Secreto: 5 toques seguidos a los anillos (cada uno antes de 2 segundos desde el anterior)
+    (function () {
+      const anillos = document.querySelector('.anillos');
+      let n = 0, t;
+      anillos.addEventListener('click', () => {
+        n++; clearTimeout(t); t = setTimeout(() => { n = 0; }, 2000);
+        anillos.classList.remove('toque'); void anillos.offsetWidth; anillos.classList.add('toque');
+        if (n >= 5) { n = 0; setTimeout(() => { location.href = '/yisuscrais'; }, 350); }
+      });
+    })();
     const FECHA = new Date('2027-02-27T10:00:00'); // CAMBIA la fecha de la boda
     const d = Math.ceil((FECHA - new Date()) / 864e5);
     document.getElementById('cuenta').textContent =
