@@ -19,4 +19,4 @@
 - Nombres, fecha y textos: `public/index.html` (la fecha de la cuenta atrás está en la línea `FECHA`), y el nombre del menú en cada página.
 - Horarios: `public/actividades.html`. Lugares y mapas: `public/informacion.html`.
 - Fotos propias: ponlas en `public/img/` (solo las verán quienes hayan iniciado sesión).
-- Pendiente de confirmar: dirección exacta de la Junta Municipal de Moncloa-Aravaca y del Four Seasons Hotel Madrid.
+- Pendiente de confirmar: dirección exacta de la Junta Municipal de Moncloa-Aravaca y del Four Seasons Hotel Madrid1.
