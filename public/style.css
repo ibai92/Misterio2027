@@ -4,7 +4,7 @@
 --serif:"Cormorant Garamond",Georgia,serif;--sans:Jost,"Segoe UI",Arial,sans-serif;--script:"Pinyon Script","Brush Script MT",cursive}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;min-height:100dvh;color:var(--tinta);font:400 1.0625rem/1.7 var(--sans);background:linear-gradient(160deg,#fffbe3 0%,#fff6c9 50%,#fff1b8 100%) fixed}
+body{margin:0;min-height:100dvh;color:var(--tinta);font:400 1.0625rem/1.7 var(--sans);background:linear-gradient(180deg,#fffcec 0%,#fff4c2 55%,#ffeaa0 100%) fixed}
 .caja{width:min(100% - 2rem,64rem);margin-inline:auto}
 header{background:#fffcebcc;backdrop-filter:blur(8px);border-bottom:1px solid #fff}
 header .caja{display:flex;justify-content:space-between;align-items:center;gap:.6rem 1.5rem;flex-wrap:wrap;padding-block:.7rem}
@@ -31,7 +31,7 @@ button.sec{padding:.35rem 1rem;font-size:.95rem}
 .carta::before,.carta::after{content:"";position:absolute;width:clamp(6.5rem,26vw,10rem);aspect-ratio:11/6;background:url(/img/rama.svg) center/contain no-repeat;pointer-events:none}
 .carta::before{top:.6rem;left:.6rem}
 .carta::after{bottom:.6rem;right:.6rem;transform:rotate(180deg)}
-.carta img.anillos{width:5rem;margin-bottom:.4rem}
+.carta img.ilus{width:5rem;margin-bottom:.4rem}
 .carta .saludo{font:2.3rem var(--script);color:var(--ciruela);margin-bottom:1.2rem}
 .carta p{font:500 clamp(1.2rem,3.2vw,1.4rem)/1.65 var(--serif)}
 .carta .firma{font:clamp(3rem,12vw,4.6rem)/1 var(--script);color:var(--ciruela);margin:.8rem 0 .4rem}
@@ -73,7 +73,7 @@ th,td{text-align:left;padding:.6rem .5rem;border-bottom:1px solid #eadfbf}
 background:radial-gradient(ellipse at 85% 8%,#6b4a2f 0,transparent 45%),radial-gradient(ellipse at 8% 95%,#5a3a22 0,transparent 50%),#24160e fixed}
 .noche::before,.noche::after{content:"";position:absolute;inset:0;pointer-events:none}
 .noche::before{background-image:radial-gradient(1.5px 1.5px at 20px 30px,#fff,transparent),radial-gradient(1px 1px at 90px 80px,#fff,transparent),radial-gradient(1.5px 1.5px at 150px 20px,#f6e3b0,transparent),radial-gradient(1px 1px at 60px 140px,#fff,transparent);background-size:200px 180px}
-.noche::after{background-image:radial-gradient(2px 2px at 40px 60px,#fff,transparent),radial-gradient(1.8px 1.8px at 130px 110px,var(--oro),transparent);background-size:310px 260px;animation:brillo 5s ease-in-out infinite alternate}
+.noche::after{background-image:radial-gradient(2px 2px at 40px 60px,#fff,transparent),radial-gradient(1.8px 1.8px at 130px 110px,var(--oro),transparent);background-size:310px 260px}
 @keyframes brillo{from{opacity:.2}to{opacity:1}}
 .luna{position:absolute;top:7%;right:9%;width:clamp(3.8rem,12vw,7rem);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffbe8,#e9dfb8 60%,#cdbf8c);box-shadow:0 0 70px 24px #f6e3b030}
 .noche>main{position:relative;z-index:1;padding:0;width:min(92vw,25rem)}
@@ -94,7 +94,6 @@ background:radial-gradient(ellipse at 85% 8%,#6b4a2f 0,transparent 45%),radial-g
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.noche::after{animation:none}@view-transition{navigation:none}}
 
 /* ===== v5: fondo, transiciones, asistencia, programa grande ===== */
-#cielo{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 nav a.cta{background:linear-gradient(135deg,#b0792f,#7d4f33);color:#fff;border:0;border-radius:999px;padding:.3rem 1.1rem;box-shadow:0 4px 12px #7d4f3355}
 nav a.cta:hover,nav a.cta[aria-current]{filter:brightness(1.12)}
 /* Transición mágica: la nueva página se abre como un iris dorado */
@@ -155,6 +154,26 @@ background:linear-gradient(120deg,#b0792f,#7d4f33,#d29a4a,#b0792f);background-si
 .carta .cierre{margin:1.6rem 0 0}
 
 /* ===== v9: secreto en los anillos de la invitación ===== */
-.carta img.anillos{display:block;margin:0 auto .4rem;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.carta img.anillos.toque{animation:giro .4s ease}
+.carta img.ilus{display:block;margin:0 auto .4rem;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.carta img.ilus.toque{animation:giro .4s ease}
 @keyframes giro{50%{transform:scale(1.3) rotate(18deg)}}
+
+/* ===== v11: candado, ilustración y hojas ===== */
+.carta img.ilus{width:min(100%,30rem);mix-blend-mode:multiply;margin:0 auto 1rem}
+.carta img.ilus.toque{animation:latir .4s ease}
+@keyframes latir{50%{transform:scale(1.05) rotate(-1deg)}}
+.carta::before,.carta::after{width:clamp(7rem,30vw,11.5rem);aspect-ratio:1;background:url(/img/hojas.svg) center/contain no-repeat;opacity:.85;z-index:0}
+.carta::before{top:0;left:0}
+.carta::after{bottom:0;right:0;transform:rotate(180deg)}
+.carta>*{position:relative;z-index:1}
+.puerta{margin-top:0;padding:2rem 1.4rem 1.8rem}
+.candado{--h:3rem;width:max-content;margin:0 auto 1.4rem}
+.arco{width:10.4rem;height:5rem;margin:0 auto -2px;border:.95rem solid #d9b25a;border-bottom:0;border-radius:5.2rem 5.2rem 0 0;box-shadow:inset 0 3px 4px #fff7,0 -2px 6px #0006;transition:transform .55s cubic-bezier(.3,1.4,.5,1);transform-origin:0 100%}
+.cuerpo-c{padding:1.2rem .9rem;border-radius:1.3rem;background:linear-gradient(145deg,#f6e0a0,#d4a04a 48%,#9a7330);box-shadow:inset 0 2px 0 #fff8,inset 0 -8px 14px #0005,0 16px 34px #000a}
+.ruedas{display:flex;gap:.5rem}
+.rueda{position:relative;width:3rem;height:calc(var(--h) * 1.6);overflow:hidden;border-radius:.5rem;background:#fff9e3;border:2px solid #7a5a22;touch-action:none;cursor:ns-resize;user-select:none;-webkit-user-select:none}
+.rueda::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(#4a33258c 0%,#4a332500 32%,#4a332500 68%,#4a33258c 100%)}
+.tira div{height:var(--h);display:grid;place-items:center;font:600 2.1rem var(--serif);color:#4a3325}
+.candado.abierto .arco{transform:translateY(-.9rem) rotate(-26deg)}
+.candado.sacude{animation:sacude .45s}
+@keyframes sacude{20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}

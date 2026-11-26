@@ -20,7 +20,7 @@
   </div></header>
   <main class="caja">
     <article class="carta">
-      <img class="anillos" src="/img/anillos.svg" alt="">
+      <img class="ilus" src="/img/loveyou.jpg" alt="Dos personas hablando con un teléfono de latas y la frase love you">
       <p>Si estás leyendo estas palabras es porque queremos que sigas formando parte de nuestra historia y de todo lo bonito que está por venir.</p>
       <p>Desde el principio tuvimos claro que queríamos una boda íntima, rodeados de las personas que hacen nuestra vida más bonita.</p>
       <p>Hoy celebramos nuestro amor, los recuerdos que hemos construido juntos y todos los momentos que aún nos quedan por compartir.</p>
@@ -43,7 +43,7 @@
     iniciar();
     // Secreto: 5 toques seguidos a los anillos (cada uno antes de 2 segundos desde el anterior)
     (function () {
-      const anillos = document.querySelector('.anillos');
+      const anillos = document.querySelector('.ilus');
       let n = 0, t;
       anillos.addEventListener('click', () => {
         n++; clearTimeout(t); t = setTimeout(() => { n = 0; }, 2000);

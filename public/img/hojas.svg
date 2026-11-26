@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+<defs><g id="h">
+<path d="M0,0C18,-24 62,-28 100,0C62,28 18,24 0,0Z" fill="currentColor"/>
+<path d="M0,0L96,0" stroke="#eef3dc" stroke-width="1.6" stroke-linecap="round" opacity=".75" fill="none"/>
+<path d="M22,0L40,-11M22,0L40,11M44,0L62,-12M44,0L62,12M66,0L82,-9M66,0L82,9" stroke="#eef3dc" stroke-width="1" opacity=".6" fill="none"/>
+</g></defs>
+<g opacity=".85">
+<use href="#h" color="#5b7d4f" transform="translate(-6,-6) rotate(8) scale(1.45)"/>
+<use href="#h" color="#6f8f5a" transform="translate(-6,-6) rotate(32) scale(1.2)"/>
+<use href="#h" color="#85a46b" transform="translate(-6,-6) rotate(58) scale(1.35)"/>
+<use href="#h" color="#6f8f5a" transform="translate(-6,-6) rotate(82) scale(1.05)"/>
+<use href="#h" color="#9ab87a" transform="translate(-6,-6) rotate(20) scale(.85)"/>
+</g></svg>

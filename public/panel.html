@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Administración</title>
+  <title>Dónde y cómo llegar</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -21,20 +21,19 @@
   <main class="caja">
     <h1>Administración</h1>
     <p id="hola">Cargando…</p>
-    
     <section id="admin" hidden>
-      <h2>Administración de usuarios</h2>
+      <h2>Invitados y números secretos</h2>
       <form id="nuevo">
-        <div><label for="ne">Correo del nuevo usuario</label><input id="ne" type="email" required></div>
-        <div><label for="np">Contraseña inicial (mínimo 8 caracteres)</label><input id="np" type="text" minlength="8" required></div>
-        <div><label for="nr">Rol</label>
-          <select id="nr"><option value="user">Usuario</option><option value="admin">Administrador</option></select></div>
-        <button type="submit">Crear usuario</button>
+        <div><label for="nn">Nombre (persona o familia)</label><input id="nn" type="text" maxlength="60" required></div>
+        <div><label for="np">Número secreto (4 cifras)</label><input id="np" type="text" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required></div>
+        <div><button class="sec" id="azar" type="button">Generar uno al azar</button></div>
+        <div><label for="nr">Rol</label><select id="nr"><option value="user">Invitado</option><option value="admin">Administrador</option></select></div>
+        <button type="submit">Crear invitado</button>
         <p id="msg" class="msg" role="status"></p>
       </form>
       <p id="resumen" class="msg" style="margin-top:1.5rem"></p>
       <div class="tabla"><table>
-        <thead><tr><th>Correo</th><th>Rol</th><th>Asistencia</th><th></th></tr></thead>
+        <thead><tr><th>Nombre</th><th>Número</th><th>Rol</th><th>Asistencia</th><th></th></tr></thead>
         <tbody id="lista"></tbody>
       </table></div>
     </section>
@@ -43,48 +42,43 @@
   <script>
     const $ = id => document.getElementById(id);
     let yo;
-
+    function boton(texto, f) { const b = document.createElement('button'); b.className = 'sec'; b.textContent = texto; b.style.marginRight = '.4rem'; b.onclick = f; return b; }
     async function cargar() {
-      const { users } = await api('users');
-      const n = e => users.filter(u => u.estado === e).length;
-      $('resumen').textContent = 'Confirmados: ' + n('si') + ' · No asisten: ' + n('no') + ' · Sin respuesta: ' + users.filter(u => !u.estado).length;
-      $('lista').replaceChildren(...users.map(u => {
+      const { personas } = await api('personas');
+      const n = e => personas.filter(p => p.estado === e).length;
+      $('resumen').textContent = 'Confirmados: ' + n('si') + ' · No asisten: ' + n('no') + ' · Sin respuesta: ' + personas.filter(p => !p.estado).length;
+      $('lista').replaceChildren(...personas.map(p => {
         const tr = document.createElement('tr');
-        [u.email, u.role === 'admin' ? 'Administrador' : 'Usuario', u.estado === 'si' ? 'Confirmada' : u.estado === 'no' ? 'No asiste' : 'Sin respuesta'].forEach(t => {
+        [p.nombre, p.pin, p.role === 'admin' ? 'Administrador' : 'Invitado', p.estado === 'si' ? 'Confirmada' : p.estado === 'no' ? 'No asiste' : 'Sin respuesta'].forEach(t => {
           const td = document.createElement('td'); td.textContent = t; tr.append(td);
         });
         const td = document.createElement('td');
-        if (u.email !== yo.email) {
-          const b = document.createElement('button');
-          b.className = 'sec'; b.textContent = 'Eliminar';
-          b.onclick = async () => {
-            if (!confirm('¿Eliminar a ' + u.email + '?')) return;
-            try { await api('users/delete', { id: u.id }); cargar(); }
-            catch (err) { aviso($('msg'), err.message, true); }
-          };
-          td.append(b);
-        }
-        tr.append(td);
-        return tr;
+        td.append(boton('Cambiar número', async () => {
+          const nuevo = prompt('Nuevo número secreto de 4 cifras para ' + p.nombre + ':');
+          if (nuevo === null) return;
+          try { await api('personas/pin', { id: p.id, pin: nuevo }); cargar(); } catch (err) { aviso($('msg'), err.message, true); }
+        }));
+        if (p.id !== yo.id) td.append(boton('Eliminar', async () => {
+          if (!confirm('¿Eliminar a ' + p.nombre + '?')) return;
+          try { await api('personas/delete', { id: p.id }); cargar(); } catch (err) { aviso($('msg'), err.message, true); }
+        }));
+        tr.append(td); return tr;
       }));
     }
-
+    $('azar').onclick = () => { $('np').value = String(Math.floor(Math.random() * 10000)).padStart(4, '0'); };
     $('nuevo').onsubmit = async e => {
       e.preventDefault();
       try {
-        await api('users', { email: $('ne').value, password: $('np').value, role: $('nr').value });
-        aviso($('msg'), 'Usuario creado. Comparte con él su contraseña inicial.');
+        await api('personas', { nombre: $('nn').value, pin: $('np').value, role: $('nr').value });
+        aviso($('msg'), 'Invitado creado. Su número secreto es ' + $('np').value + '.');
         $('nuevo').reset(); cargar();
       } catch (err) { aviso($('msg'), err.message, true); }
     };
-
-    $('salir').onclick = async () => { await api('logout', {}); location.href = '/login.html'; };
-
-    (async () => {
-      try { yo = await api('me'); } catch { location.href = '/login.html'; return; }
-      $('hola').textContent = 'Sesión iniciada como ' + yo.email + (yo.role === 'admin' ? ' (administrador)' : '');
-      if (yo.role === 'admin') { $('admin').hidden = false; cargar(); }
-    })();
+    iniciar().then(u => {
+      if (!u) return; yo = u;
+      $('hola').textContent = 'Sesión iniciada como ' + u.nombre + (u.role === 'admin' ? ' (administrador)' : '');
+      if (u.role === 'admin') { $('admin').hidden = false; cargar(); }
+    });
   </script>
 </body>
 </html>

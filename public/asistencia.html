@@ -29,12 +29,13 @@
   <script src="/app.js"></script>
   <script>
     const $ = id => document.getElementById(id);
+    let nombre = '';
     const TXT = {
-      si: 'Qué ilusión. Ya estás en la lista: te esperamos con los brazos abiertos. 💛',
-      no: 'Te echaremos mucho de menos. Si cambias de idea, aquí seguiremos esperándote. 💌'
+      si: 'Qué ilusión, {n}. Ya estás en la lista: te esperamos con los brazos abiertos. 💛',
+      no: 'Te echaremos mucho de menos, {n}. Si cambias de idea, aquí seguiremos esperándote. 💌'
     };
     function pinta(e) {
-      $('estado').textContent = e ? TXT[e] : '';
+      $('estado').textContent = e ? TXT[e].replace('{n}', nombre) : '';
       $('si').classList.toggle('hecho', e === 'si');
       $('texto').textContent = e === 'si' ? '¡Asistencia confirmada!' : '¡Confirmar asistencia!';
     }
@@ -69,7 +70,7 @@
     }
     $('si').onclick = () => enviar('si');
     $('no').onclick = () => enviar('no');
-    iniciar().then(async yo => { if (yo) { const r = await api('rsvp').catch(() => ({})); pinta(r.estado); } });
+    iniciar().then(async yo => { if (yo) { nombre = yo.nombre; const r = await api('rsvp').catch(() => ({})); pinta(r.estado); } });
   </script>
 </body>
 </html>
