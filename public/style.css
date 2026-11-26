@@ -4,7 +4,7 @@
 --serif:"Cormorant Garamond",Georgia,serif;--sans:Jost,"Segoe UI",Arial,sans-serif;--script:"Pinyon Script","Brush Script MT",cursive}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;min-height:100dvh;color:var(--tinta);font:400 1.0625rem/1.7 var(--sans);background:linear-gradient(180deg,#fffcec 0%,#fff4c2 55%,#ffeaa0 100%) fixed}
+body{margin:0;min-height:100dvh;color:var(--tinta);font:400 1.0625rem/1.7 var(--sans);background:linear-gradient(180deg,#fffcec 0%,#fff4c2 55%,#ffeaa0 100%)}
 .caja{width:min(100% - 2rem,64rem);margin-inline:auto}
 header{background:#fffcebcc;backdrop-filter:blur(8px);border-bottom:1px solid #fff}
 header .caja{display:flex;justify-content:space-between;align-items:center;gap:.6rem 1.5rem;flex-wrap:wrap;padding-block:.7rem}
@@ -146,7 +146,7 @@ background:linear-gradient(120deg,#b0792f,#7d4f33,#d29a4a,#b0792f);background-si
 
 /* ===== v6: estrella secreta y minijuego ===== */
 .hud{display:flex;justify-content:center;gap:1.6rem;flex-wrap:wrap;margin:1rem 0;font-weight:500;font-size:1.15rem}
-#juego{display:block;width:100%;height:auto;aspect-ratio:900/560;border-radius:18px;border:2px solid var(--oro);box-shadow:0 18px 50px #4a332555;touch-action:none;cursor:crosshair;background:#2b1b12}
+#juego{display:block;width:100%;height:auto;aspect-ratio:900/560;border-radius:18px;border:2px solid var(--oro);box-shadow:0 18px 50px #4a332555;touch-action:none;cursor:crosshair;background:#4fa3e8}
 
 /* ===== v8: secreto en el nombre de los novios y carta ===== */
 .logo{display:inline-block}
@@ -184,3 +184,13 @@ background:linear-gradient(120deg,#b0792f,#7d4f33,#d29a4a,#b0792f);background-si
 -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);-webkit-mask-composite:source-in;
 mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);mask-composite:intersect}
 .carta::before,.carta::after{width:clamp(6rem,24vw,9rem)}
+
+/* ===== v13: menú más compacto y alineado ===== */
+header nav{margin-left:auto;justify-content:flex-end;gap:.4rem 1.1rem}
+nav a.cta{padding:.3rem .9rem}
+@media(max-width:640px){
+header .caja{padding-block:.45rem}
+.logo{font-size:1.6rem}
+header nav{gap:.25rem .8rem;font-size:.93rem}
+nav a.cta{padding:.22rem .75rem}
+button.sec{padding:.25rem .8rem;font-size:.9rem}}
