@@ -177,3 +177,10 @@ background:linear-gradient(120deg,#b0792f,#7d4f33,#d29a4a,#b0792f);background-si
 .candado.abierto .arco{transform:translateY(-.9rem) rotate(-26deg)}
 .candado.sacude{animation:sacude .45s}
 @keyframes sacude{20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}
+
+/* ===== v12: la carta combina con la ilustración (papel crema) ===== */
+.carta{background:#fbefdf;padding-top:clamp(4.5rem,12vw,6.5rem);box-shadow:0 2px 0 #fff8,0 24px 60px #6b4a2f30,inset 0 0 0 1px #c9ab8a55,inset 0 0 70px #c9a57a26}
+.carta img.ilus{width:100%;mix-blend-mode:normal;margin:0 auto 1.2rem;
+-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);-webkit-mask-composite:source-in;
+mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);mask-composite:intersect}
+.carta::before,.carta::after{width:clamp(6rem,24vw,9rem)}
